@@ -3,7 +3,19 @@
 function listCommand(array $arguments)
 {
 
-	$todos = getTodosOrFail();
+	$time = null;
+	if (!empty($arguments))
+	{
+		$date = array_shift($arguments);
+		$time = strtotime($date);
+		if ($time === false)
+		{
+			echo 'Invalid date!';
+			exit(1);
+		}
+	}
+
+	$todos = getTodosOrFail($time);
 
 	foreach ($todos as $index => $todo)
 	{
